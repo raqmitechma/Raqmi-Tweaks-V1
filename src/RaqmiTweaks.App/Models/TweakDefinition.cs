@@ -13,6 +13,9 @@ public sealed class TweakDefinition
     public string RegistryValueName { get; init; } = string.Empty;
     public int EnabledValue { get; init; }
     public int DisabledValue { get; init; }
+    public double EstimatedFpsGainPercent { get; init; }
+    public double EstimatedLatencyReductionMs { get; init; }
+    public double EstimatedRamSavingsMb { get; init; }
     public bool IsSelected { get; set; }
     public bool Applied { get; set; }
 }

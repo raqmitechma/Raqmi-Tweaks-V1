@@ -10,93 +10,177 @@
         Height="840"
         WindowStartupLocation="CenterScreen">
     <Grid Background="#121212">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="220" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+        <TabControl Background="#121212" Foreground="White">
+            <TabItem Header="Dashboard">
+                <Grid Margin="24">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
 
-        <Border Background="#1E1E1E" Padding="16">
-            <StackPanel>
-                <TextBlock Text="Raqmi Tweaks" FontSize="24" FontWeight="SemiBold" Margin="0,0,0,24" />
-                <TextBlock Text="Dashboard" Margin="0,8" />
-                <TextBlock Text="Privacy" Margin="0,8" />
-                <TextBlock Text="Network" Margin="0,8" />
-                <TextBlock Text="Apps" Margin="0,8" />
-                <TextBlock Text="Startup" Margin="0,8" />
-                <TextBlock Text="HOSTS" Margin="0,8" />
-            </StackPanel>
-        </Border>
+                    <TextBlock Text="Predicted Boost" FontSize="26" FontWeight="SemiBold" Margin="0,0,0,12" />
 
-        <Grid Grid.Column="1" Margin="24">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-
-            <TextBlock Text="Predicted Boost" FontSize="26" FontWeight="SemiBold" Margin="0,0,0,12" />
-
-            <Border Grid.Row="1" Padding="16" Margin="0,0,0,12" CornerRadius="14" Background="#1E1E1E">
-                <StackPanel>
-                    <TextBlock Text="Estimated impact" Foreground="#B6B8C3" FontSize="12" />
-                    <TextBlock Text="{Binding StatusText}" FontSize="24" FontWeight="SemiBold" Margin="0,8,0,0" />
-                    <TextBlock Text="CPU / RAM / Disk telemetry is sampled on a 500 ms cadence and uses a bounded queue for safe UI rendering." Margin="0,8,0,0" TextWrapping="Wrap" Foreground="#D0D4DD" />
-                </StackPanel>
-            </Border>
-
-            <Grid Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1.2*" />
-                    <ColumnDefinition Width="1.8*" />
-                </Grid.ColumnDefinitions>
-
-                <StackPanel Grid.Column="0" Margin="0,0,12,0">
-                    <Border Padding="16" CornerRadius="14" Background="#1E1E1E" Margin="0,0,0,12">
+                    <Border Grid.Row="1" Padding="16" Margin="0,0,0,12" CornerRadius="14" Background="#1E1E1E">
                         <StackPanel>
-                            <TextBlock Text="CPU Load" Foreground="#B6B8C3" />
-                            <TextBlock Text="{Binding Snapshot.CpuDisplay}" FontSize="32" FontWeight="SemiBold" Margin="0,12,0,0" />
+                            <TextBlock Text="Estimated impact" Foreground="#B6B8C3" FontSize="12" />
+                            <TextBlock Text="{Binding StatusText}" FontSize="24" FontWeight="SemiBold" Margin="0,8,0,0" />
+                            <TextBlock Text="Telemetry, settings export, registry backup, startup entries, and hosts management are all exposed in the app shell." Margin="0,8,0,0" TextWrapping="Wrap" Foreground="#D0D4DD" />
                         </StackPanel>
                     </Border>
-                    <Border Padding="16" CornerRadius="14" Background="#1E1E1E">
-                        <StackPanel>
-                            <TextBlock Text="RAM Usage" Foreground="#B6B8C3" />
-                            <TextBlock Text="{Binding Snapshot.RamDisplay}" FontSize="32" FontWeight="SemiBold" Margin="0,12,0,0" />
+
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.2*" />
+                            <ColumnDefinition Width="1.8*" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Margin="0,0,12,0">
+                            <Border Padding="16" CornerRadius="14" Background="#1E1E1E" Margin="0,0,0,12">
+                                <StackPanel>
+                                    <TextBlock Text="CPU Load" Foreground="#B6B8C3" />
+                                    <TextBlock Text="{Binding Snapshot.CpuDisplay}" FontSize="32" FontWeight="SemiBold" Margin="0,12,0,0" />
+                                </StackPanel>
+                            </Border>
+                            <Border Padding="16" CornerRadius="14" Background="#1E1E1E">
+                                <StackPanel>
+                                    <TextBlock Text="RAM Usage" Foreground="#B6B8C3" />
+                                    <TextBlock Text="{Binding Snapshot.RamDisplay}" FontSize="32" FontWeight="SemiBold" Margin="0,12,0,0" />
+                                </StackPanel>
+                            </Border>
                         </StackPanel>
-                    </Border>
-                </StackPanel>
 
-                <Border Grid.Column="1" Padding="8" CornerRadius="14" Background="#1E1E1E">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
+                        <Border Grid.Column="1" Padding="8" CornerRadius="14" Background="#1E1E1E">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
 
-                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="8">
-                            <Button Content="Apply selected" Width="120" Margin="0,0,8,0" Command="{Binding ApplySelectedTweaksCommand}" />
-                            <Button Content="Revert selected" Width="120" Command="{Binding RevertSelectedTweaksCommand}" />
-                        </StackPanel>
+                                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="8">
+                                    <Button Content="Apply selected" Width="120" Margin="0,0,8,0" Command="{Binding ApplySelectedTweaksCommand}" />
+                                    <Button Content="Revert selected" Width="120" Command="{Binding RevertSelectedTweaksCommand}" />
+                                </StackPanel>
 
-                        <DataGrid Grid.Row="1"
-                                  ItemsSource="{Binding TweakRows}"
-                                  AutoGenerateColumns="False"
-                                  CanUserAddRows="False"
-                                  HeadersVisibility="Column"
-                                  AlternatingRowBackground="#232323"
-                                  Background="#1E1E1E"
-                                  Foreground="White"
-                                  GridLinesVisibility="Horizontal">
-                            <DataGrid.Columns>
-                                <DataGridCheckBoxColumn Binding="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="On" Width="50" />
-                                <DataGridTextColumn Binding="{Binding Title}" Header="Tweak" Width="220" />
-                                <DataGridTextColumn Binding="{Binding Category}" Header="Category" Width="140" />
-                                <DataGridTextColumn Binding="{Binding Description}" Header="Description" Width="*" />
-                                <DataGridCheckBoxColumn Binding="{Binding Applied, Mode=OneWay}" Header="Applied" Width="70" />
-                            </DataGrid.Columns>
-                        </DataGrid>
+                                <DataGrid Grid.Row="1"
+                                          ItemsSource="{Binding TweakRows}"
+                                          AutoGenerateColumns="False"
+                                          CanUserAddRows="False"
+                                          HeadersVisibility="Column"
+                                          AlternatingRowBackground="#232323"
+                                          Background="#1E1E1E"
+                                          Foreground="White"
+                                          GridLinesVisibility="Horizontal">
+                                    <DataGrid.Columns>
+                                        <DataGridCheckBoxColumn Binding="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="On" Width="50" />
+                                        <DataGridTextColumn Binding="{Binding Title}" Header="Tweak" Width="220" />
+                                        <DataGridTextColumn Binding="{Binding Category}" Header="Category" Width="140" />
+                                        <DataGridTextColumn Binding="{Binding Description}" Header="Description" Width="*" />
+                                        <DataGridCheckBoxColumn Binding="{Binding Applied, Mode=OneWay}" Header="Applied" Width="70" />
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                        </Border>
                     </Grid>
-                </Border>
-            </Grid>
-        </Grid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Profiles">
+                <Grid Margin="24">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                        <Button Content="Validate sample config" Width="170" Margin="0,0,8,0" Command="{Binding ValidateExampleConfigurationCommand}" />
+                        <Button Content="Export settings" Width="135" Margin="0,0,8,0" Command="{Binding ExportConfigurationCommand}" />
+                        <Button Content="Create backup" Width="135" Command="{Binding CreateRegistryBackupCommand}" />
+                    </StackPanel>
+
+                    <TextBlock Grid.Row="1" Text="{Binding ConfigSummary}" Foreground="#D0D4DD" Margin="0,0,0,12" TextWrapping="Wrap" />
+
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border Padding="12" CornerRadius="12" Background="#1E1E1E" Margin="0,0,12,0">
+                            <StackPanel>
+                                <TextBlock Text="Export JSON" FontWeight="SemiBold" Margin="0,0,0,8" />
+                                <TextBox Text="{Binding ExportJson}" AcceptsReturn="True" TextWrapping="Wrap" Height="280" VerticalScrollBarVisibility="Auto" />
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Column="1" Padding="12" CornerRadius="12" Background="#1E1E1E">
+                            <StackPanel>
+                                <TextBlock Text="Registry backup JSON" FontWeight="SemiBold" Margin="0,0,0,8" />
+                                <TextBox Text="{Binding BackupJson}" AcceptsReturn="True" TextWrapping="Wrap" Height="280" VerticalScrollBarVisibility="Auto" />
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Startup">
+                <Grid Margin="24">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                        <Button Content="Refresh startup" Width="130" Command="{Binding LoadStartupEntriesCommand}" />
+                    </StackPanel>
+
+                    <DataGrid Grid.Row="1"
+                              ItemsSource="{Binding StartupEntries}"
+                              AutoGenerateColumns="False"
+                              CanUserAddRows="False"
+                              HeadersVisibility="Column"
+                              AlternatingRowBackground="#232323"
+                              Background="#1E1E1E"
+                              Foreground="White"
+                              GridLinesVisibility="Horizontal">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Name}" Header="Name" Width="200" />
+                            <DataGridTextColumn Binding="{Binding Command}" Header="Command" Width="*" />
+                            <DataGridCheckBoxColumn Binding="{Binding Enabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Enabled" Width="90" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="HOSTS">
+                <Grid Margin="24">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                        <Button Content="Refresh hosts" Width="130" Command="{Binding LoadHostsEntriesCommand}" />
+                    </StackPanel>
+
+                    <DataGrid Grid.Row="1"
+                              ItemsSource="{Binding HostsEntries}"
+                              AutoGenerateColumns="False"
+                              CanUserAddRows="False"
+                              HeadersVisibility="Column"
+                              AlternatingRowBackground="#232323"
+                              Background="#1E1E1E"
+                              Foreground="White"
+                              GridLinesVisibility="Horizontal">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Address}" Header="Address" Width="130" />
+                            <DataGridTextColumn Binding="{Binding Hostname}" Header="Hostname" Width="*" />
+                            <DataGridCheckBoxColumn Binding="{Binding Enabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Enabled" Width="90" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
