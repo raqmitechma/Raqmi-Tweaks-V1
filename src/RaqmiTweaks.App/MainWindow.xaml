@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:RaqmiTweaks.App"
         mc:Ignorable="d"
         Title="Raqmi Tweaks"
-        Width="1200"
-        Height="760"
+        Width="1400"
+        Height="840"
         WindowStartupLocation="CenterScreen">
     <Grid Background="#121212">
         <Grid.ColumnDefinitions>
@@ -40,28 +40,61 @@
                 <StackPanel>
                     <TextBlock Text="Estimated impact" Foreground="#B6B8C3" FontSize="12" />
                     <TextBlock Text="{Binding StatusText}" FontSize="24" FontWeight="SemiBold" Margin="0,8,0,0" />
-                    <TextBlock Text="CPU / RAM / Disk telemetry is sampled on a 500 ms cadence and rendered on the UI thread with a bounded queue." Margin="0,8,0,0" TextWrapping="Wrap" Foreground="#D0D4DD" />
+                    <TextBlock Text="CPU / RAM / Disk telemetry is sampled on a 500 ms cadence and uses a bounded queue for safe UI rendering." Margin="0,8,0,0" TextWrapping="Wrap" Foreground="#D0D4DD" />
                 </StackPanel>
             </Border>
 
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="1.2*" />
+                    <ColumnDefinition Width="1.8*" />
                 </Grid.ColumnDefinitions>
 
-                <Border Grid.Column="0" Margin="0,0,12,0" Padding="16" CornerRadius="14" Background="#1E1E1E">
-                    <StackPanel>
-                        <TextBlock Text="CPU Load" Foreground="#B6B8C3" />
-                        <TextBlock Text="{Binding Snapshot.CpuDisplay}" FontSize="32" FontWeight="SemiBold" Margin="0,12,0,0" />
-                    </StackPanel>
-                </Border>
+                <StackPanel Grid.Column="0" Margin="0,0,12,0">
+                    <Border Padding="16" CornerRadius="14" Background="#1E1E1E" Margin="0,0,0,12">
+                        <StackPanel>
+                            <TextBlock Text="CPU Load" Foreground="#B6B8C3" />
+                            <TextBlock Text="{Binding Snapshot.CpuDisplay}" FontSize="32" FontWeight="SemiBold" Margin="0,12,0,0" />
+                        </StackPanel>
+                    </Border>
+                    <Border Padding="16" CornerRadius="14" Background="#1E1E1E">
+                        <StackPanel>
+                            <TextBlock Text="RAM Usage" Foreground="#B6B8C3" />
+                            <TextBlock Text="{Binding Snapshot.RamDisplay}" FontSize="32" FontWeight="SemiBold" Margin="0,12,0,0" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
 
-                <Border Grid.Column="1" Margin="12,0,0,0" Padding="16" CornerRadius="14" Background="#1E1E1E">
-                    <StackPanel>
-                        <TextBlock Text="RAM Usage" Foreground="#B6B8C3" />
-                        <TextBlock Text="{Binding Snapshot.RamDisplay}" FontSize="32" FontWeight="SemiBold" Margin="0,12,0,0" />
-                    </StackPanel>
+                <Border Grid.Column="1" Padding="8" CornerRadius="14" Background="#1E1E1E">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="8">
+                            <Button Content="Apply selected" Width="120" Margin="0,0,8,0" Command="{Binding ApplySelectedTweaksCommand}" />
+                            <Button Content="Revert selected" Width="120" Command="{Binding RevertSelectedTweaksCommand}" />
+                        </StackPanel>
+
+                        <DataGrid Grid.Row="1"
+                                  ItemsSource="{Binding TweakRows}"
+                                  AutoGenerateColumns="False"
+                                  CanUserAddRows="False"
+                                  HeadersVisibility="Column"
+                                  AlternatingRowBackground="#232323"
+                                  Background="#1E1E1E"
+                                  Foreground="White"
+                                  GridLinesVisibility="Horizontal">
+                            <DataGrid.Columns>
+                                <DataGridCheckBoxColumn Binding="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="On" Width="50" />
+                                <DataGridTextColumn Binding="{Binding Title}" Header="Tweak" Width="220" />
+                                <DataGridTextColumn Binding="{Binding Category}" Header="Category" Width="140" />
+                                <DataGridTextColumn Binding="{Binding Description}" Header="Description" Width="*" />
+                                <DataGridCheckBoxColumn Binding="{Binding Applied, Mode=OneWay}" Header="Applied" Width="70" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
                 </Border>
             </Grid>
         </Grid>
